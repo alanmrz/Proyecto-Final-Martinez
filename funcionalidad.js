@@ -7,8 +7,25 @@
 //let prov3= "Cordoba"
 let provincias= "Elija su ubicacion \n 1. Buenos Aires \n 2. Bariloche \n 3. Cordoba";
 
+class hotel{
+    constructor(nombre,ubicacion,codigo){
+        this.nombre=nombre
+        this.ubicacion=ubicacion
+        this.codigo= codigo
+    }
+}
+let hoteles = []
 
-let hoteles=""
+hoteles.push(new hotel("Mar del plata","Buenos Aires",1))
+hoteles.push(new hotel("Capital","Buenos Aires",2))
+hoteles.push(new hotel("Nordelta","Buenos Aires",3))
+hoteles.push(new hotel("Hotel San carlos de bariloche","Bariloche",4))
+hoteles.push(new hotel("Hotel Patagonia","Bariloche",5))
+hoteles.push(new hotel("Hotel Tres Reyes","Bariloche",6))
+hoteles.push(new hotel("Hotel villa maria","Cordoba",7))
+hoteles.push(new hotel("Hotel Cordoba","Cordoba",8))
+hoteles.push(new hotel("Hotel Carlos paz","Cordoba",9))
+
 let continuar = false;
 let ubicacion
 while(continuar==false){
@@ -31,73 +48,71 @@ switch (ubicacion){
     }
 }
 if(ubicacion==1){
-    hoteles= "Elija su hotel en Buenos Aires \n 1.Hotel Mar del plata \n 2.Hotel capital \n 3.Hotel Nordelta"
-    //ubicacion= "Buenos aires"
-    mostrarHoteles(hoteles);
+    
+    let ubicacionElegida= []
+    hoteles.forEach((e)=> {if(e.ubicacion.toLowerCase() == "Buenos Aires".toLowerCase()){
+        
+        ubicacionElegida.push(e)
+
+
+        }
+        
+        }
+    
+    )
+    mostrarHoteles(ubicacionElegida);
 }
 if(ubicacion==3){
-    hoteles= "Elija su hotel en Cordoba \n 1.Hotel villa maria \n 2.Cordoba capital \n 3.Carlos paz"
-    //ubicacion= "Cordoba"
-    mostrarHoteles(hoteles);
+    let ubicacionElegida= []
+    hoteles.forEach((e)=> {if(e.ubicacion.toLowerCase() == "Cordoba".toLowerCase()){
+        
+        ubicacionElegida.push(e)
+
+
+        }
+        
+        }
+    
+    )
+    mostrarHoteles(ubicacionElegida);
     
 }
 if(ubicacion==2){
-    hoteles= "Elija su hotel en Bariloche \n 1.Hotel San carlos de bariloche \n 2.Hotel Patagonia \n 3.Hotel Tres Reyes"
-    //ubicacion= "Bariloche"
-    mostrarHoteles(hoteles);
+    let ubicacionElegida= []
+    hoteles.forEach((e)=> {if(e.ubicacion.toLowerCase() == "Bariloche".toLowerCase()){
+        
+        ubicacionElegida.push(e)
+
+
+        }
+        
+        }
+    
+    )
+    mostrarHoteles(ubicacionElegida);
     
 }
 
 function mostrarHoteles(descripcion){
+    let cont= 0
+    let cartel= "Elija su hotel en "+ descripcion[0].ubicacion+ "\n"
+    descripcion.forEach((e) => {
+        cont++
+        cartel+=cont + " " +e.nombre+ " \n"
+    })
+    
     let elegirHotel=false
     while(elegirHotel==false){
-    let hotelElegido=parseInt(prompt(descripcion))
-    switch(hotelElegido){
+    let hotelElegido=parseInt(prompt(cartel))
 
-    case 1:
-        
-        elegirHotel=true
-        if(ubicacion===1 && hotelElegido===1){
-            alert("Usted se hosperada en Buenos aires en el hotel mar del plata")
-        }
-        if(ubicacion===2 && hotelElegido===1){
-            alert("Usted se hosperada en Bariloche en el hotel San carlos de bariloche")
-        }
-        if(ubicacion===3 && hotelElegido===1){
-            alert("Usted se hosperada en Cordoba en el hotel Hotel villa maria")
-        }
-        
-        break;
-    
-    case 2:
-        if(ubicacion===1 && hotelElegido===2){
-            alert("Usted se hosperada en Buenos aires en el hotel capital")
-        }
-        if(ubicacion===2 && hotelElegido===2){
-            alert("Usted se hosperada en Bariloche en el hotel patagonia")
-        }
-        if(ubicacion===3 && hotelElegido===2){
-            alert("Usted se hosperada en Cordoba en el Hotel cordoba capital")
-        }
-        elegirHotel=true
-        break;
-    case 3:
-        if(ubicacion===1 && hotelElegido===3){
-            alert("Usted se hosperada en Buenos aires en el hotel nordelta")
-        }
-        if(ubicacion===2 && hotelElegido===3){
-            alert("Usted se hosperada en Bariloche en el hotel tres reyes")
-        }
-        if(ubicacion===3 && hotelElegido===3){
-            alert("Usted se hosperada en Cordoba en el hotel carlos paz")
-        }
-        elegirHotel=true
-        break;
-    default:
-        
-        alert("No eligio ninguna opcion correcta")
-        break;
+    if(descripcion[hotelElegido-1]=== undefined){
+        alert("Elija una opcion correcta")
     }
+    else{
+    
+        alert("Usted se hospedara en "+ descripcion[hotelElegido-1].ubicacion +" en el hotel "+ descripcion[hotelElegido-1].nombre)
+        elegirHotel= true
+        }
 
     }
     }
