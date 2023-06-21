@@ -5,15 +5,29 @@
 //let prov1= "Buenos Aires"
 //let prov2= "Bariloche"
 //let prov3= "Cordoba"
-let provincias= "Elija su ubicacion \n 1. Buenos Aires \n 2. Bariloche \n 3. Cordoba";
 
+//let prueba= document.getElementById("inputSearch")
 class hotel{
-    constructor(nombre,ubicacion,codigo){
+    constructor(nombre,ubicacion,codigo,imagen){
         this.nombre=nombre
         this.ubicacion=ubicacion
         this.codigo= codigo
+        
     }
 }
+class prov{
+    constructor(nombre, imagen){
+        this.nombre= nombre
+        this.imagen= imagen
+    }
+}
+let provincias =[]
+provincias.push(new prov("Buenos Aires","img/bsas.jpg"))
+provincias.push(new prov("Cordoba","img/cba.jpg"))
+provincias.push(new prov("Bariloche","img/bariloche.jpg"))
+
+let container = document.getElementById("container")
+container.innerHTML= ''
 let hoteles = []
 
 hoteles.push(new hotel("Mar del plata","Buenos Aires",1))
@@ -26,98 +40,68 @@ hoteles.push(new hotel("Hotel villa maria","Cordoba",7))
 hoteles.push(new hotel("Hotel Cordoba","Cordoba",8))
 hoteles.push(new hotel("Hotel Carlos paz","Cordoba",9))
 
-let continuar = false;
-let ubicacion
-while(continuar==false){
-    ubicacion=parseInt(prompt(provincias))
-switch (ubicacion){
-    case 1:
-        continuar =confirm("Eligio Buenos Aires, Esta seguro de su eleccion?")
-        break;
-
-    case 2:
-        continuar =confirm("Eligio Bariloche, Esta seguro de su eleccion?")
-        break;
-    case 3:
-            continuar =confirm("Eligio Cordoba, Esta seguro de su eleccion?")
-        break;
-    default:
-        
-        alert("No eligio ninguna opcion correcta")
-        break;
-    }
-}
-if(ubicacion==1){
-    
-    let ubicacionElegida= []
-    hoteles.forEach((e)=> {if(e.ubicacion.toLowerCase() == "Buenos Aires".toLowerCase()){
-        
-        ubicacionElegida.push(e)
-
-
-        }
-        
-        }
-    
-    )
-    mostrarHoteles(ubicacionElegida);
-}
-if(ubicacion==3){
-    let ubicacionElegida= []
-    hoteles.forEach((e)=> {if(e.ubicacion.toLowerCase() == "Cordoba".toLowerCase()){
-        
-        ubicacionElegida.push(e)
-
-
-        }
-        
-        }
-    
-    )
-    mostrarHoteles(ubicacionElegida);
-    
-}
-if(ubicacion==2){
-    let ubicacionElegida= []
-    hoteles.forEach((e)=> {if(e.ubicacion.toLowerCase() == "Bariloche".toLowerCase()){
-        
-        ubicacionElegida.push(e)
-
-
-        }
-        
-        }
-    
-    )
-    mostrarHoteles(ubicacionElegida);
-    
+if(localStorage.getItem("usuario")){
+    document.getElementById("inicioSesion").innerHTML= "Bienvenido "+localStorage.getItem("usuario")
+    document.getElementById("inputSearch").hidden=true
+    document.getElementById("btnSesion").hidden=true
+    cargarDatos(provincias)
 }
 
-function mostrarHoteles(descripcion){
-    let cont= 0
-    let cartel= "Elija su hotel en "+ descripcion[0].ubicacion+ "\n"
-    descripcion.forEach((e) => {
-        cont++
-        cartel+=cont + " " +e.nombre+ " \n"
-    })
-    
-    let elegirHotel=false
-    while(elegirHotel==false){
-    let hotelElegido=parseInt(prompt(cartel))
-
-    if(descripcion[hotelElegido-1]=== undefined){
-        alert("Elija una opcion correcta")
-    }
-    else{
-    
-        alert("Usted se hospedara en "+ descripcion[hotelElegido-1].ubicacion +" en el hotel "+ descripcion[hotelElegido-1].nombre)
-        elegirHotel= true
-        }
-
-    }
+function ingresarNombre(){
+    let nombre = document.getElementById("inputSearch")
+    let prueba =nombre.value.trim()
+    if(prueba != ''){
+    document.getElementById("inicioSesion").innerHTML= "Bienvenido "+ prueba 
+    nombre.hidden= true
+    document.getElementById("btnSesion").hidden=true
+    localStorage.setItem("usuario",prueba)
+    cargarDatos(provincias)
     }
 
 
+}
+function cargarDatos(hoteles){
+        hoteles.forEach(element => {
+            container.innerHTML +=retornoCardHTML(element);
+        })  
+       
+        }
+
+    function retornoCardHTML(provincia) {
+        return `<div class="div-card">
+                    <div class="imagen"><h1><img class="imagen" src = "${provincia.imagen}"></h1></div>
+                    
+                    <div class="provincia"><p>${provincia.nombre}</p></div>
+                    
+                    <button value="${provincia.nombre}" onclick="provElegida(this.value)" >Ver hoteles</button>
+                </div>` //button button-outline 
+    }
+    function provElegida(valor){
+        container.innerHTML= ''
+        hoteles.forEach((element) =>{
+                    if(element.ubicacion==valor){       
+                    container.innerHTML +=`<div class="div-card">
+                    
+                    
+                    <div class="provincia"><p>${element.nombre}</p></div>
+                    
+                    <button value="${element.codigo}" onclick="mostrarHotelElegido(this.value)" >Ver hoteles</button>
+                </div>`
+                    }
+                
+
+
+        }
+         )
+  }
+  function mostrarHotelElegido(value){
+
+    container.innerHTML= ''
+    let mostrarHotel =hoteles.find((hotelElegido)=> hotelElegido.codigo == parseInt(value))
+    container.innerHTML += `<div class="provincia"><p>Usted eligio el hotel ${mostrarHotel.nombre}</p></div>`
+  }
+
+    
 
 
 
