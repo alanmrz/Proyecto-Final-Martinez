@@ -4,12 +4,23 @@
     <meta charset="UTF-8" />
     <link rel="stylesheet" href="css/styles.css">
     <title>PreEntrega Alan Martinez, Hoteleria</title>
+    <script defer src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script defer src="clases.js"></script>
+    <script defer src="funcionalidad.js"></script>
 </head>
 <body>
     <main>
         <input type="search" id="inputSearch" placeholder="Ingrese su nombre" onsearch="ingresarNombre()">
         <div  id="inicioSesion" ></div>
         <button  id="btnSesion" onclick="ingresarNombre()">Iniciar</button>
+        <select id="ubicacion">
+            <option hidden="true" selected disabled>...</option>
+            
+        </select>
+        <select id="hoteles" hidden="true">
+            <option selected disabled>...</option>
+            
+        </select>
         <div class="container" id="container">
 
             
@@ -19,5 +30,5 @@
     </main>
     <div id="persona"></div>
 </body>
-<script src="funcionalidad.js"></script>
+
 </html>

@@ -1,26 +1,8 @@
-//let nombre = prompt("Ingresa tu Nombre por favor ");
-//let apellido = prompt("Ingresa tu Apellido por favor");
 
-//document.getElementById("persona").innerHTML= "Bienvenido "+ nombre+" "+ apellido
-//let prov1= "Buenos Aires"
-//let prov2= "Bariloche"
-//let prov3= "Cordoba"
+let selecUbicacion = document.getElementById("ubicacion")
+let selecHoteles = document.getElementById("hoteles")
 
-//let prueba= document.getElementById("inputSearch")
-class hotel{
-    constructor(nombre,ubicacion,codigo,imagen){
-        this.nombre=nombre
-        this.ubicacion=ubicacion
-        this.codigo= codigo
-        
-    }
-}
-class prov{
-    constructor(nombre, imagen){
-        this.nombre= nombre
-        this.imagen= imagen
-    }
-}
+
 let provincias =[]
 provincias.push(new prov("Buenos Aires","img/bsas.jpg"))
 provincias.push(new prov("Cordoba","img/cba.jpg"))
@@ -40,11 +22,25 @@ hoteles.push(new hotel("Hotel villa maria","Cordoba",7))
 hoteles.push(new hotel("Hotel Cordoba","Cordoba",8))
 hoteles.push(new hotel("Hotel Carlos paz","Cordoba",9))
 
+provincias.forEach((elemento) => selecUbicacion.innerHTML += `<option value="${elemento.nombre}">${elemento.nombre}</option>`)
+
+selecUbicacion.addEventListener("change",()=>{
+    selecHoteles.innerHTML =''
+    // selecHoteles.hidden= false
+    // hoteles.forEach((element)=>{
+    //     if(element.ubicacion=== selecUbicacion.value){
+    //         selecHoteles.innerHTML += `<option value="${element.nombre}">${element.nombre}</option>`
+    //     }
+    // })
+    provElegida(selecUbicacion.value)
+    
+})
+
 if(localStorage.getItem("usuario")){
     document.getElementById("inicioSesion").innerHTML= "Bienvenido "+localStorage.getItem("usuario")
     document.getElementById("inputSearch").hidden=true
     document.getElementById("btnSesion").hidden=true
-    cargarDatos(provincias)
+    //cargarDatos(provincias)
 }
 
 function ingresarNombre(){
@@ -55,7 +51,7 @@ function ingresarNombre(){
     nombre.hidden= true
     document.getElementById("btnSesion").hidden=true
     localStorage.setItem("usuario",prueba)
-    cargarDatos(provincias)
+    //cargarDatos(provincias)
     }
 
 
@@ -98,7 +94,12 @@ function cargarDatos(hoteles){
 
     container.innerHTML= ''
     let mostrarHotel =hoteles.find((hotelElegido)=> hotelElegido.codigo == parseInt(value))
-    container.innerHTML += `<div class="provincia"><p>Usted eligio el hotel ${mostrarHotel.nombre}</p></div>`
+    //container.innerHTML += `<div class="provincia"><p>Usted eligio el hotel ${mostrarHotel.nombre}</p></div>`
+    Swal.fire(
+        `Elegiste ${mostrarHotel.nombre}`,
+        'You clicked the button!',
+        'success'
+      )
   }
 
     
