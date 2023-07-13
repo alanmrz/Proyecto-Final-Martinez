@@ -1,0 +1,14 @@
+[
+{
+    "nombre":"Buenos Aires",
+    "imagen":"img/bsas.jpg"
+},
+{
+    "nombre":"Cordoba",
+    "imagen":"img/cba.jpg"
+},
+{
+    "nombre":"Bariloche",
+    "imagen":"img/bariloche.jpg"
+}
+]
