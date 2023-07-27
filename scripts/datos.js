@@ -2,7 +2,7 @@ let provincias =[]
 // provincias.push(new prov("Buenos Aires","img/bsas.jpg"))
 // provincias.push(new prov("Cordoba","img/cba.jpg"))
 // provincias.push(new prov("Bariloche","img/bariloche.jpg"))
-const URL = 'provincias.json'
+const URL = 'json/provincias.json'
 
 let hoteles = []
 
