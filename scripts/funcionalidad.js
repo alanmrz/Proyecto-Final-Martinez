@@ -56,8 +56,8 @@ function ingresarNombre(){
   function mostrarHotelElegido(value){
 
     container.innerHTML= ''
-    let mostrarHotel =hoteles.find((hotelElegido)=> hotelElegido.codigo == parseInt(value))
-    
+    let hotelFinal=hoteles.find((hotelElegido)=> hotelElegido.codigo == parseInt(value))
+    localStorage.setItem('miHotel', JSON.stringify(hotelFinal))
     Swal.fire({
         title: 'Continuar compra',
         text: "A un paso de finalizar el proceso",
@@ -69,12 +69,11 @@ function ingresarNombre(){
         cancelButtonText: 'Cancelar'
       }).then((result) => {
         if (result.isConfirmed) {
-          Swal.fire(
-            `Elegiste ${mostrarHotel.nombre}, te dirigiras a la pagina para finalizar la compra`,
-        '',
-        'success'
-          )
+          
+          location.replace("checkout.html")
         }
+        
+       
       })
     
   }
